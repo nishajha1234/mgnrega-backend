@@ -1,0 +1,25 @@
+-- migrations/init.sql
+CREATE TABLE IF NOT EXISTS districts (
+  id SERIAL PRIMARY KEY,
+  district_code TEXT UNIQUE NOT NULL,
+  district_name TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS mgnrega_records (
+  id SERIAL PRIMARY KEY,
+  fin_year TEXT,
+  month TEXT,
+  state_code TEXT,
+  state_name TEXT,
+  district_code TEXT,
+  district_name TEXT,
+  payload JSONB,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  UNIQUE(district_code, fin_year, month)
+);
+
+-- store a snapshot update time
+CREATE TABLE IF NOT EXISTS metadata (
+  key TEXT PRIMARY KEY,
+  value TEXT
+);
