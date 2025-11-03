@@ -26,7 +26,7 @@ app.get('/api/data/:district_code', (req, res) => {
 
   const rows = db.prepare(`
     SELECT fin_year, month, payload, created_at
-    FROM mgnrega
+    FROM mgnrega_records
     WHERE district_code = ?
     ORDER BY created_at DESC
     LIMIT 24
