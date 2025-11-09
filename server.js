@@ -20,11 +20,9 @@ app.get('/api/districts', (req, res) => {
   res.json(rows);
 });
 
-// 2️⃣ Get data for a specific district (auto-fetch if missing)
-app.get('/api/data/:district_code', async (req, res) => {
-  try {
-    const { district_code } = req.params;
-    if (!district_code) return res.status(400).json({ error: 'Invalid district code' });
+// 2️⃣ Get records for a specific district (by district_code)
+app.get('/api/data/:district_code', (req, res) => {
+  const { district_code } = req.params;
 
     // Step 1: Try reading from local DB
     let rows = db.prepare(`
